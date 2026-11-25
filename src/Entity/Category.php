@@ -8,26 +8,39 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\GetCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Attribute\Groups as AttributeGroups;
-
+use App\State\CategoryAlphabeticalProvider;
+use Symfony\Component\Serializer\Attribute\Groups;
+use App\State\CategoryBooksProvider;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
     operations: [
         new Get(
-            uriTemplate: '/category/{id}', 
+            uriTemplate: '/category/{id}',
             requirements: ['id' => '\d+'],
         ),
         new GetCollection(
             uriTemplate: '/categories',
         ),
         new Post(
-            uriTemplate:'/category',
+            uriTemplate: '/category',
             status: 301
+        ),
+        new GetCollection(
+            uriTemplate: '/categories/alphabetical/{order}',
+            uriVariables: ['order' => 'string'],
+            provider: CategoryAlphabeticalProvider::class,
+            normalizationContext: ['groups' => ['category:list']],
+            outputFormats: ['json' => ['application/json']]
+        ),
+        new GetCollection(
+            uriTemplate: '/categories/{id}/books',
+            uriVariables: ['id' => 'int'],
+            provider: CategoryBooksProvider::class,
+            normalizationContext: ['groups' => ['category:list']],
+            outputFormats: ['json' => ['application/json']]
         )
     ],
-    order: ['id' => 'ASC', 'name' => 'ASC'],
     paginationEnabled: false
 )]
 class Category
@@ -35,9 +48,11 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category:list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: false)]
+    #[Groups(['category:list'])]
     private ?string $name = null;
 
     public function getId(): ?int

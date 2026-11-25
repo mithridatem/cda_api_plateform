@@ -40,4 +40,13 @@ class CategoryRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findAllCategoryOrderAlphabetical(string $order= 'ASC'): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', $order)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
