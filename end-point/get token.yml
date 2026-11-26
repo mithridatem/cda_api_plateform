@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://127.0.0.1:8001/api/login_check
+  url: "{{BASE_URL}}/api/login_check"
   body:
     type: json
     data: |-
@@ -15,6 +15,7 @@ http:
       }
   auth:
     type: bearer
+    token: ""
 
 settings:
   encodeUrl: true

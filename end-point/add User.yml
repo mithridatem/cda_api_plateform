@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: https://127.0.0.1:8001/api/users
+  url: "{{BASE_URL}}/api/users"
   body:
     type: json
     data: |-
