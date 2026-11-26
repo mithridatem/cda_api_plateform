@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit\Entity;
 
 use PHPUnit\Framework\TestCase;
 use App\Entity\Category;
@@ -19,9 +19,8 @@ class CategoryTest extends TestCase
         //2 Act
         $result = $testCategory->getName();
         //3 Assert
-        $this->assertSame($value, $result);
+        self::assertSame($value, $result);
     }
-
 
     public function testGetNameReturnBadValue(): void
     {
@@ -35,9 +34,9 @@ class CategoryTest extends TestCase
         $resultat = $testCategory->setName($value);
         //2 Act
         //3 Assert
-        $this->assertNotSame($resultat, $result);
+        self::assertNotSame($resultat, $result);
     }
-
+    
     //Test qui échoue volontairement
     public function testGetNameReturnInvalid(): void
     {
@@ -51,6 +50,6 @@ class CategoryTest extends TestCase
         $resultat = $testCategory->setName($value);
         //2 Act
         //3 Assert
-        $this->assertNotSame($result, $result);
+        self::assertNotSame($result, $result);
     }
 }
