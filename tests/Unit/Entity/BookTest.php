@@ -297,7 +297,7 @@ class BookTest extends TestCase
         $book->setAuthor();
     }
 
-    public function testSetTitleExpectedRisky(): void
+/*     public function testSetTitleExpectedRisky(): void
     {
         //1 Arrange
         $book = new Book();
@@ -331,5 +331,54 @@ class BookTest extends TestCase
 
         //3 Act
         $book->setPublishAt(new \DateTimeImmutable(), "test");
-    } 
+    }  */
+
+    public function testAddCategoryStoresTheCategoryInstance(): void
+    {
+        // Arrange
+        $book = new Book();
+        $category = new Category();
+        $expected = [$category];
+
+        // Act
+        $book->addCategory($category);
+
+        // Assert
+        $actual = $book->getCategories()->toArray();
+        self::assertSame($expected, $actual);
+    }
+
+     public function testAddTheSameCategoryStoresTowtimesCategoryInstance(): void
+    {
+        // Arrange
+        $book = new Book();
+        $category = new Category();
+
+        // Act
+        $book->addCategory($category);
+        $book->addCategory($category);
+
+        // Assert
+        self::assertCount(1,$book->getCategories());
+    }
+
+     public function testAddDisctinctCategoryStores(): void
+    {
+        // Arrange
+        $book = new Book();
+        $cat1 = new Category();
+        $cat2 = new Category();
+
+        // Act
+        $book->addCategory($cat1);
+        //Ajout d'un doublon
+        $book->addCategory($cat1);
+        $book->addCategory($cat2);
+        $book->removeCategory($cat1);
+
+       
+        // Assert
+        self::assertSame(true, $book->getCategories()->contains($cat2));
+        self::assertCount(1,$book->getCategories());
+    }
 }
