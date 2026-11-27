@@ -13,9 +13,9 @@ final class ProfileTest extends WebTestCase
     {
         $client = self::createClient();
         $user = (new User())
-            ->setEmail('profile@example.test')
-            ->setFirstname('Camille')
-            ->setLastname('Martin');
+            ->setEmail('mathieu.mi@test.fr')
+            ->setFirstname('Mathieu')
+            ->setLastname('Mithridate');
         (new \ReflectionProperty(User::class, 'id'))->setValue($user, 42);
 
         $jwtManager = $this->createMock(JWTTokenManagerInterface::class);
@@ -39,9 +39,9 @@ final class ProfileTest extends WebTestCase
         $profile = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
         self::assertArrayNotHasKey('@context', $profile);
         self::assertSame(42, $profile['id']);
-        self::assertSame('profile@example.test', $profile['email']);
-        self::assertSame('Camille', $profile['firstname']);
-        self::assertSame('Martin', $profile['lastname']);
+        self::assertSame('mathieu.mi@test.fr', $profile['email']);
+        self::assertSame('Mathieu', $profile['firstname']);
+        self::assertSame('Mithridate', $profile['lastname']);
     }
 
     public function testProfileRequiresAuthentication(): void

@@ -30,13 +30,11 @@ class CategoryBooksProvider implements ProviderInterface
         $category = $this->categoryRepository->find($id);
 
         //Test si elle n'existe pas
-        if (null == $category) {
-            throw new NotFoundHttpException("La categorie n'existe pas", code:404);
-        }
+        if (null === $category) throw new NotFoundHttpException("La categorie n'existe pas");
 
         //Récupération des livres
         $books = $this->bookRepository->findBooksByCategoryId($id);
-        
+
         //Retourne les lives trouvés
         return $books;
     }

@@ -30,19 +30,31 @@ final class CategoryAlphabeticalTest extends WebTestCase
         $client = self::createClient();
         $requestStack = self::getContainer()->get(RequestStack::class);
         $repository = $this->createMock(CategoryRepository::class);
-        $repository->expects(self::once())->method('findAllCategoryOrderAlphabetical')
+        $repository
+            ->expects(self::once())
+            ->method('findAllCategoryOrderAlphabetical')
             ->willReturnCallback(function () use ($requestStack): array {
-                $operation = $requestStack->getCurrentRequest()->attributes->get('_api_operation');
+                $operation = $requestStack
+                    ->getCurrentRequest()
+                    ->attributes->get('_api_operation');
+
                 self::assertSame('desc', $operation->getParameters()->get('order')->getValue());
 
                 return [$this->category(1, 'Fantasy'), $this->category(2, 'Histoire')];
             });
+
         self::getContainer()->set(CategoryRepository::class, $repository);
 
         $client->request('GET', '/api/categories/alphabetical?order=desc');
 
         self::assertResponseIsSuccessful();
-        $categories = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        $categories = json_decode(
+            $client
+                ->getResponse()
+                ->getContent(),
+            true,
+            flags: JSON_THROW_ON_ERROR
+        );
         self::assertSame(['Fantasy', 'Histoire'], array_column($categories, 'name'));
     }
 
