@@ -121,4 +121,215 @@ class BookTest extends TestCase
         //3 Assert
         self::assertNotSame($expect, $actual);
     }
+
+    public function testSetTitleAssignExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Alice au pays des merveilles";
+        //2 Act
+        $book->setTitle($expect);
+        //3 Assert
+        self::assertSame($expect, $book->getTitle());
+    }
+
+    public function testSetResumeAssignExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Un livre qui raconte l'histoire d'Alice au pays des merveilles";
+        //2 Act
+        $book->setResume($expect);
+        //3 Assert
+        self::assertSame($expect, $book->getResume());
+    }
+
+    public function testSetAuthorAssignExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Lewis Carrol";
+        //2 Act
+        $book->setAuthor($expect);
+        //3 Assert
+        self::assertSame($expect, $book->getAuthor());
+    }
+
+    public function testSetPublishAtAssignExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = new \DateTimeImmutable();
+        //2 Act
+        $book->setPublishAt($expect);
+        //3 Assert
+        self::assertSame($expect, $book->getPublishAt());
+    }
+
+    public function testSetTitleAssignNotExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Alice au pays des merveilles";
+        $actual = "Un livre qui raconte l'histoire d'Alice au pays des merveilles";
+        //2 Act
+        $book->setTitle($actual);
+        //3 Assert
+        self::assertNotSame($expect, $book->getTitle());
+    }
+
+    public function testSetresumeAssignNotExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Un livre qui raconte l'histoire du tour du monde en 80 jours";
+        //Value set dans $resume
+        $actual = "Un livre qui raconte l'histoire d'Alice au pays des merveilles";
+        //2 Act
+        $book->setResume($actual);
+        //3 Assert
+        self::assertNotSame($expect, $book->getResume());
+    }
+
+    public function testSetAuthorAssignNotExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = "Lewis Carrol";
+        //Value set dans $author
+        $actual = "Victor Hugo";
+        //2 Act
+        $book->setAuthor($actual);
+        //3 Assert
+        self::assertNotSame($expect, $book->getAuthor());
+    }
+
+    public function testSetPublishAtAssignNotExpectedValue(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        $expect = new \DateTimeImmutable();
+        //Value set dans $author
+        $actual = new \DateTimeImmutable('2026-11-26');
+        //2 Act
+        $book->setPublishAt($actual);
+        //3 Assert
+        self::assertNotSame($expect, $book->getPublishAt());
+    }
+
+    public function testSetTitleExpectedErrorException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\TypeError::class);
+        //3 Act
+        $book->setTitle(["titre"]);
+    }
+
+    public function testSetResumeExpectedErrorException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\TypeError::class);
+        //3 Act
+        $book->setResume(["Résumé du livre"]);
+    }
+
+    public function testSetAuthorExpectedErrorException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\TypeError::class);
+        //3 Act
+        $book->setAuthor(new \DateTime());
+    }
+
+    public function testSetPublishAtExpectedErrorException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\TypeError::class);
+        //3 Act
+        $book->setPublishAt("2026-01-01");
+    }
+
+    public function testSetTitleExpectedInvalidArgumentException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\ArgumentCountError::class);
+        //3 Act
+        $book->setTitle();
+    }
+
+    public function testSetResumeExpectedInvalidArgumentException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\ArgumentCountError::class);
+        //3 Act
+        $book->setResume();
+    }
+
+    public function testSetAuthorExpectedInvalidArgumentException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\ArgumentCountError::class);
+        //3 Act
+        $book->setAuthor();
+    }
+
+    public function testSetPublishAtExpectedInvalidArgumentException(): void
+    {
+        //1 Arrange
+        $book = new Book();
+        //2 Expect
+        $this->expectException(\ArgumentCountError::class);
+        //3 Act
+        $book->setAuthor();
+    }
+
+    public function testSetTitleExpectedRisky(): void
+    {
+        //1 Arrange
+        $book = new Book();
+   
+        //3 Act
+        $book->setTitle("titre du livre", "test");
+    }
+
+    public function testSetResumeExpectedRisky(): void
+    {
+        //1 Arrange
+        $book = new Book();
+
+        //3 Act
+        $book->setResume("Résumé du livre", "test");
+    }
+
+    public function testSetAuthorExpectedRisky(): void
+    {
+        //1 Arrange
+        $book = new Book();
+     
+        //3 Act
+        $book->setAuthor("auteur du livre", "test");
+    }
+
+    public function testSetPublishAtExpectedRisky(): void
+    {
+        //1 Arrange
+        $book = new Book();
+
+        //3 Act
+        $book->setPublishAt(new \DateTimeImmutable(), "test");
+    } 
 }
