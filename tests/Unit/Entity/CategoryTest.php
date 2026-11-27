@@ -13,13 +13,14 @@ class CategoryTest extends TestCase
         //créer un objet vide
         $testCategory = new Category();
         //stocker le résultat attendu
-        $value = "test";
+        $expect = "test";
         //setter l'attribut
-        $testCategory->setName($value);
+        $testCategory->setName($expect);
         //2 Act
-        $result = $testCategory->getName();
+         //Récupérer la valeur du getter
+        $actual = $testCategory->getName();
         //3 Assert
-        self::assertSame($value, $result);
+        self::assertSame($expect, $actual);
     }
 
     public function testGetNameReturnBadValue(): void
@@ -28,14 +29,15 @@ class CategoryTest extends TestCase
         //créer un objet vide
         $testCategory = new Category();
         //stocker le résultat attendu
-        $result = "test";
+        $expect = "test";
         $value = "test2";
         //setter l'attribut
-        //2 Act
         $testCategory->setName($value);
-        $resultat = $testCategory->getName();
+        //2 Act
+        //Récupérer la valeur du getter
+        $actual = $testCategory->getName();
         //3 Assert
-        self::assertNotSame($resultat, $result);
+        self::assertNotSame($expect, $actual);
     }
     
     //Test qui échoue volontairement
