@@ -17,7 +17,7 @@ class CategoryTest extends TestCase
         //setter l'attribut
         $testCategory->setName($expect);
         //2 Act
-         //Récupérer la valeur du getter
+        //Récupérer la valeur du getter
         $actual = $testCategory->getName();
         //3 Assert
         self::assertSame($expect, $actual);
@@ -39,20 +39,16 @@ class CategoryTest extends TestCase
         //3 Assert
         self::assertNotSame($expect, $actual);
     }
-    
-    //Test qui échoue volontairement
-   /*  public function testGetNameReturnInvalid(): void
+
+    public function testItRejectsTypeErrorException(): void
     {
-        //1 Arrange
-        //créer un objet vide
+        // Arrange
         $testCategory = new Category();
-        //stocker le résultat attendu
-        $result = "test";
-        $value = "test2";
-        //setter l'attribut
-        $resultat = $testCategory->setName($value);
-        //2 Act
-        //3 Assert
-        self::assertNotSame($result, $result);
-    } */
+
+        // Expect
+        $this->expectException(\TypeError::class);
+
+        // Act
+        $testCategory->setName(["tests"]);
+    }
 }

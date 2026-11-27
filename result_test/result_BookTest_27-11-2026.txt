@@ -1,0 +1,10 @@
+PHPUnit 13.4.8 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.5.12
+Configuration: C:\Users\mathieumithridate\Desktop\CDA-26-01\Symfony\cda_api\phpunit.dist.xml
+
+........                                                            8 / 8 (100%)
+
+Time: 00:00.012, Memory: 20.00 MB
+
+[30;42mOK (8 tests, 8 assertions)[0m
