@@ -1,0 +1,9 @@
+name: Tests unitaires PHP
+on: [push]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier le déclenchement
+        run: echo "Le workflow a démarré"
